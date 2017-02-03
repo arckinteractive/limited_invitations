@@ -1,0 +1,25 @@
+<?php
+
+return [
+	'limited_invitations:settings:label:default_invites' => "Default Invites",
+	'limited_invitations:settings:help:default_invites' => "The number of invites available to everyone intially",
+	'limited_invitations:count:remaining:none' => "You have sent all of your invitations.  Thanks for sharing the site, check back for more invitations in the future.  You can view your sent invitations here: %s",
+	'limited_invitations:count:remaining:some' => 'You have %s invitation(s) remaining.  If you attempt to invite more, only the first %1$s will actually be invited.  You can view your sent invitations here: %s',
+	'limited_invitations:history' => "Invitation History",
+	'limited_invitations:history:none' => "You have not invited anyone to join you here.  Invite someone now: %s",
+	'limited_invitations:resend:confirm' => "Resend this invitation?",
+	'limited_invitations:resend' => "Resend invitation",
+	'limited_invitations:error:invalid:guid' => "Could not find invitation from ID",
+	'limited_invitations:invitation:resent' => "Invitation has been resent",
+	'limited_invitations:settings:label:invite_only' => "Enforce registrations by invite only?",
+	'limited_invitations:settings:help:invite_only' => "If enabled new users can only join the site if they are invited.",
+	'limited_invitations:reroute:invite_only' => "Registration is by invitation only",
+	'limited_invitations:accepted' => "This invitation has been accepted",
+	'limited_invitations:registered' => "The invitee became a member of the site",
+	'limited_invitations:error:invite:no_remaining_invitations' => "You have no invitations to send at the moment.",
+	'limited_invitations:ignored_emails' => "Not enough invitations for: %s",
+	'limited_invitations:since:reset' => "Reset Invitations",
+	'limited_invitations:since:reset:confirm' => "This will reset all users to their full amount of invitations (either default or granted).  Sent invitations are still valid, but not counted against their new total.  Are you sure you want to reset?",
+	'limited_invitations:action:reset:success' => "All users have their full amount of invitations.",
+	'limited_invitations:error:email_mismatch' => "Registration must be for the email to which the invitation was sent",
+];

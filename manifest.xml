@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+    <name>Limited Invitations</name>
+    <id>limited_invitations</id>
+    <author>Matt Beckett</author>
+    <version>1.0.0</version>
+    <description>Limits the number of invitations a user can have</description>
+    <website>http://arckinteractive.com/</website>
+    <copyright>(c) Arck Interactive</copyright>
+    <license>GNU General Public License version 2</license>
+    <requires>
+        <type>elgg_release</type>
+        <version>2.3</version>
+    </requires>
+    <requires>
+        <type>plugin</type>
+        <name>invitefriends</name>
+    </requires>
+    <requires>
+        <type>priority</type>
+        <plugin>invitefriends</plugin>
+        <priority>after</priority>
+    </requires>
+</plugin_manifest>
