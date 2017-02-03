@@ -27,12 +27,7 @@ class Plugin {
 			return $cache[$user->guid];
 		}
 		
-		if ($user->limited_invitations_granted) {
-			$allowed_invitations = (int) $user->limited_invitations_granted;
-		}
-		else {
-			$allowed_invitations = (int) elgg_get_plugin_setting('default_invites', PLUGIN_ID);
-		}
+		$allowed_invitations = self::getAllowedInvitations($user);
 		
 		$invitations_sent = self::countInvitations($user);
 		
@@ -95,5 +90,26 @@ class Plugin {
 		$time = (int) elgg_get_plugin_setting('invitations_reset', PLUGIN_ID);
 		
 		return $time;
+	}
+	
+	/**
+	 * How many invitations is this user allowed to send out?
+	 * 
+	 * @param \ElggUser $user
+	 * @return int
+	 */
+	public static function getAllowedInvitations($user) {
+		if (!$user instanceof \ElggUser) {
+			return 0;
+		}
+		
+		if ($user->limited_invitations_granted) {
+			$allowed_invitations = (int) $user->limited_invitations_granted;
+		}
+		else {
+			$allowed_invitations = (int) elgg_get_plugin_setting('default_invites', PLUGIN_ID);
+		}
+		
+		return $allowed_invitations;
 	}
 }

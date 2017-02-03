@@ -22,4 +22,9 @@ return [
 	'limited_invitations:since:reset:confirm' => "This will reset all users to their full amount of invitations (either default or granted).  Sent invitations are still valid, but not counted against their new total.  Are you sure you want to reset?",
 	'limited_invitations:action:reset:success' => "All users have their full amount of invitations.",
 	'limited_invitations:error:email_mismatch' => "Registration must be for the email to which the invitation was sent",
+	'limited_invitations:grant_invitations' => "Grant Invitations",
+	'limited_invitations:grant:invites:help' => "Set this user with a custom number of invites.  To return to default enter \"-1\".",
+	'limited_invitations:error:invalid:userguid' => "Invalid user ID",
+	'limited_invitations:granted:success' => "User invitation settings have been saved",
+	'limited_invitations:warning:group_tools:invite' => "Note: While limited site invitations are in effect you can only invite existing users into groups.  Email addresses of non-members will be ignored."
 ];

@@ -21,4 +21,9 @@
         <plugin>invitefriends</plugin>
         <priority>after</priority>
     </requires>
+    <requires>
+        <type>priority</type>
+        <plugin>group_tools</plugin>
+        <priority>after</priority>
+    </requires>
 </plugin_manifest>
