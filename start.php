@@ -29,6 +29,7 @@ function init() {
 	elgg_register_plugin_hook_handler('register', 'user', __NAMESPACE__ . '\\Hooks::registerUserComplete', 0);
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', __NAMESPACE__ . '\\Hooks::userHoverMenuRegister');
 	elgg_register_plugin_hook_handler('action', 'groups/invite', __NAMESPACE__ . '\\Hooks::groupsInviteCheck');
+	elgg_register_plugin_hook_handler('register', 'menu:login', __NAMESPACE__ . '\\Hooks::loginMenuRegister');
 	
 	elgg_register_page_handler('limited_invitations', __NAMESPACE__ . '\\pagehandler');
 	

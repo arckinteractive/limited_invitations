@@ -68,6 +68,11 @@ class Hooks {
 			// this is not a standard register url... let's let it pass
 			return $return;
 		}
+		
+		// only enforce this if the plugin setting says so
+		if (elgg_get_plugin_setting('invite_only', PLUGIN_ID) != 'yes') {
+			return $return;
+		}
 
 		$friend_guid = get_input('friend_guid');
 		$invite_code = get_input('invitecode');
@@ -286,6 +291,34 @@ class Hooks {
 		
 		// set the emails of the existing users
 		set_input('user_guid_email', array_values($emails));
+	}
+	
+	/**
+	 * Remove the registration link from the login form if necessary
+	 * 
+	 * @param type $hook
+	 * @param type $type
+	 * @param type $return
+	 * @param type $params
+	 */
+	public static function loginMenuRegister($hook, $type, $return, $params) {
+		// only enforce this if the plugin setting says so
+		if (elgg_get_plugin_setting('invite_only', PLUGIN_ID) != 'yes') {
+			return $return;
+		}
+		
+		if (is_array($return)) {
+			foreach ($return as $key => $item) {
+				if ($item->getName() == 'register') {
+					unset($return[$key]);
+				}
+			}
+			
+			// reset keys if we've removed anything
+			$return = array_values($return);
+		}
+		
+		return $return;
 	}
 
 }
