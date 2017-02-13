@@ -4,7 +4,7 @@
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git@github.com:arckinteractive/limited_invitations.git",
+    "url": "https://github.com/arckinteractive/limited_invitations.git",
     "owner": "arckinteractive",
     "repo": "limited_invitations"
   },
