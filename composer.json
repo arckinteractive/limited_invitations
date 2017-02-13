@@ -6,7 +6,7 @@
     "homepage": "http://arckinteractive.com",
     "minimum-stability": "stable",
     "keywords": [
-        "elgg", "plugin", "payments", "stripe"
+        "elgg", "plugin", "invitations", "limited invitations", "arckinteractive"
     ],
     "license": "GPL-2.0",
     "authors": [
