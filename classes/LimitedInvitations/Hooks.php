@@ -107,45 +107,14 @@ class Hooks {
 
 		$email = get_input('email');
 		$friend_guid = get_input('friend_guid');
-		$friend = get_user($friend_guid);
 		$invite_code = get_input('invitecode');
 
-		if (!$friend || !$invite_code) {
-			register_error(elgg_echo('limited_invitations:reroute:invite_only'));
-			forward(REFERER);
+		if (Plugin::validateInvitation($invite_code, $friend_guid, $email)) {
+			return $return;
 		}
-
-		if (!elgg_validate_invite_code($friend->username, $invite_code)) {
-			register_error(elgg_echo('limited_invitations:reroute:invite_only'));
-			forward(REFERER);
-		}
-
-		// ok, so we have a valid friend and code
-		// but the url could have been shared, so lets make sure the email matches an invitation
-		$ia = elgg_set_ignore_access(true);
-		$invitations = elgg_get_entities_from_metadata([
-			'type' => 'object',
-			'subtype' => 'invitation_sent',
-			'owner_guid' => $friend->guid,
-			'metadata_name_value_pairs' => [
-				'name' => 'invitecode',
-				'value' => $invite_code
-			],
-			'limit' => false,
-			'batch' => true
-		]);
-
-		foreach ($invitations as $invite) {
-			if (strtolower($invite->email) == strtolower($email)) {
-				// we're good!
-				// happy registration
-				elgg_set_ignore_access($ia);
-				return $return;
-			}
-		}
-		elgg_set_ignore_access($ia);
 
 		// we didn't match an email address
+		register_error(elgg_echo('Registration is by invitation only'));
 		register_error(elgg_echo('limited_invitations:error:email_mismatch'));
 		forward(REFERER);
 	}
@@ -321,4 +290,57 @@ class Hooks {
 		return $return;
 	}
 
+	
+	/**
+	 * Intercept the hybridauth registration form
+	 * Redirect if registration is invite only and we don't have valid invite code
+	 * 
+	 * @param type $hook
+	 * @param type $type
+	 * @param type $return
+	 * @param type $params
+	 * @return type
+	 */
+	public static function hybridauthRegisterForm($hook, $type, $return, $params) {
+		$invite_only = elgg_get_plugin_setting('invite_only', PLUGIN_ID);
+
+		if ($invite_only != 'yes') {
+			// it's not invite only, we can let them pass regardless
+			return $return;
+		}
+		
+		$friend = get_user($params['vars']['friend_guid']);
+		$invite_code = $params['vars']['invitecode'];
+
+		if (!$friend || !$invite_code || !elgg_validate_invite_code($friend->username, $invite_code)) {
+			// this isn't by invite
+			// so let's output an error and redirect them
+			register_error(elgg_echo('limited_invitations:hybridauth:byinvite'));
+			forward();
+		}
+		
+		return $return;
+	}
+	
+	/**
+	 * Protect the hybridauth registration action from invalid attempts
+	 * 
+	 * @param type $hook
+	 * @param type $type
+	 * @param type $return
+	 * @param type $params
+	 * @return type
+	 */
+	public static function hybriauthRegisterAction($hook, $type, $return, $params) {
+		$email_verified = get_input('email_verified');
+		
+		if ($email_verified) {
+			set_input('email', $email_verified);
+		}
+		
+		self::registerActionCheck('action', 'register', $return, $params);
+		
+		// if we didn't get redirected from the registerActionCheck then we're ok
+		return $return;
+	}
 }

@@ -31,6 +31,10 @@ function init() {
 	elgg_register_plugin_hook_handler('action', 'groups/invite', __NAMESPACE__ . '\\Hooks::groupsInviteCheck');
 	elgg_register_plugin_hook_handler('register', 'menu:login', __NAMESPACE__ . '\\Hooks::loginMenuRegister');
 	
+	//hybridauth compatibility
+	elgg_register_plugin_hook_handler('view_vars', 'forms/hybridauth/register', __NAMESPACE__ . '\\Hooks::hybridauthRegisterForm');
+	elgg_register_plugin_hook_handler('action', 'hybridauth/register', __NAMESPACE__ . '\\Hooks::hybriauthRegisterAction');
+	
 	elgg_register_page_handler('limited_invitations', __NAMESPACE__ . '\\pagehandler');
 	
 	if (elgg_is_admin_logged_in()) {

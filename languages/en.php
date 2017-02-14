@@ -26,5 +26,6 @@ return [
 	'limited_invitations:grant:invites:help' => "Set this user with a custom number of invites.  To return to default enter \"-1\".",
 	'limited_invitations:error:invalid:userguid' => "Invalid user ID",
 	'limited_invitations:granted:success' => "User invitation settings have been saved",
-	'limited_invitations:warning:group_tools:invite' => "Note: While limited site invitations are in effect you can only invite existing users into groups.  Email addresses of non-members will be ignored."
+	'limited_invitations:warning:group_tools:invite' => "Note: While limited site invitations are in effect you can only invite existing users into groups.  Email addresses of non-members will be ignored.",
+	'limited_invitations:hybridauth:byinvite' => "Registration is by invitation only",
 ];

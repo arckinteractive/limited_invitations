@@ -112,4 +112,44 @@ class Plugin {
 		
 		return $allowed_invitations;
 	}
+	
+	/**
+	 * Determine whether the combination of invite_code, friend_guid, and registration email is valid
+	 * 
+	 * @param string $invite_code
+	 * @param string $friend_guid
+	 * @param string $registration_email
+	 * 
+	 * @return bool
+	 */
+	public static function validateInvitation($invite_code, $friend_guid, $registration_email) {
+		$friend = get_user($friend_guid);
+		
+		if (!$friend || !$invite_code || !elgg_validate_invite_code($friend->username, $invite_code)) {
+			return false;
+		}
+
+		// ok, so we have a valid friend and code
+		// but the url could have been shared, so lets make sure the email matches an invitation
+		$ia = elgg_set_ignore_access(true);
+		$invitations = elgg_get_entities_from_metadata([
+			'type' => 'object',
+			'subtype' => 'invitation_sent',
+			'owner_guid' => $friend->guid,
+			'metadata_name_value_pairs' => [
+				[
+					'name' => 'invitecode',
+					'value' => $invite_code
+				],
+				[
+					'name' => 'email',
+					'value' => strtolower($registration_email)
+				]
+			],
+			'count' => true
+		]);
+		elgg_set_ignore_access($ia);
+		
+		return $invitations ? true : false;
+	}
 }
