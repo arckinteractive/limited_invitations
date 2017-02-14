@@ -3,7 +3,7 @@
     <name>Limited Invitations</name>
     <id>limited_invitations</id>
     <author>Matt Beckett</author>
-    <version type="dist">1.0.1</version>
+    <version type="dist">2.0.4</version>
     <description>Limits the number of invitations a user can have</description>
     <website>http://arckinteractive.com/</website>
     <copyright>(c) Arck Interactive</copyright>
